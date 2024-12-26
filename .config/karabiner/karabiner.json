@@ -1,0 +1,634 @@
+{
+  "profiles": [
+    {
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "Function keys work as fn keys for the applications (Rider)",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f1",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f1" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f1",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f1",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f2",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f2" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f2",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f2",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f3",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f3" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f3",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f3",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f4",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f4" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f4",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f4",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f5",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f5" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f5",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f5",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f6",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f6" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f6",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f6",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f7",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f7" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f7",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f7",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f8",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f8" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f8",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f8",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f9",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f9" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f9",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f9",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f10",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f10" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f10",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f10",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f11",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f11" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f11",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f11",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f12",
+                  "modifiers": {
+                    "mandatory": ["fn"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [{ "key_code": "f12" }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "f12",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f12",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "' to ö and ⇧' to Ö with conditions",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
+                "from": { "key_code": "semicolon" },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  { "key_code": "o" }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": { "mandatory": ["shift"] }
+                },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  {
+                    "key_code": "o",
+                    "modifiers": ["shift"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "' to ü and ⇧' to Ü with conditions",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
+                "from": { "key_code": "open_bracket" },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  { "key_code": "u" }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "open_bracket",
+                  "modifiers": { "mandatory": ["shift"] }
+                },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  {
+                    "key_code": "u",
+                    "modifiers": ["shift"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "' to ä and ⇧' to Ä with conditions",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
+                "from": { "key_code": "quote" },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  { "key_code": "a" }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": { "mandatory": ["shift"] }
+                },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  {
+                    "key_code": "a",
+                    "modifiers": ["shift"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          }
+        ]
+      },
+      "name": "Default profile",
+      "selected": true,
+      "simple_modifications": [
+        {
+          "from": { "key_code": "y" },
+          "to": [{ "key_code": "z" }]
+        },
+        {
+          "from": { "key_code": "z" },
+          "to": [{ "key_code": "y" }]
+        }
+      ],
+      "virtual_hid_keyboard": { "keyboard_type_v2": "iso" }
+    }
+  ]
+}
