@@ -4,6 +4,79 @@
       "complex_modifications": {
         "rules": [
           {
+            "description": "; to ö and ⌥ö to ; and ⇧⌥ö to Ö with conditions",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
+                "from": { "key_code": "semicolon" },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  { "key_code": "o" }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": { "mandatory": ["option"] }
+                },
+                "to": [{ "key_code": "semicolon" }],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": { "mandatory": ["option"] }
+                },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  { "key_code": "o" }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": { "mandatory": ["option", "shift"] }
+                },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  {
+                    "key_code": "o",
+                    "modifiers": ["shift"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
             "description": "Function keys work as fn keys for the applications (Rider)",
             "manipulators": [
               {
@@ -489,49 +562,26 @@
             ]
           },
           {
-            "description": "' to ö and ⇧' to Ö with conditions",
+            "description": "˜ to ~",
             "manipulators": [
               {
-                "conditions": [
-                  {
-                    "bundle_identifiers": [
-                      "^com\\.jetbrains\\.rider$",
-                      "^com\\.apple\\.Terminal$"
-                    ],
-                    "type": "frontmost_application_unless"
-                  }
-                ],
-                "from": { "key_code": "semicolon" },
-                "to": [
-                  {
-                    "key_code": "u",
-                    "modifiers": ["option"]
-                  },
-                  { "key_code": "o" }
-                ],
-                "type": "basic"
-              },
-              {
                 "from": {
-                  "key_code": "semicolon",
+                  "key_code": "non_us_backslash",
                   "modifiers": { "mandatory": ["shift"] }
                 },
                 "to": [
                   {
-                    "key_code": "u",
-                    "modifiers": ["option"]
-                  },
-                  {
-                    "key_code": "o",
+                    "key_code": "non_us_backslash",
                     "modifiers": ["shift"]
-                  }
+                  },
+                  { "key_code": "spacebar" }
                 ],
                 "type": "basic"
               }
             ]
           },
           {
-            "description": "' to ü and ⇧' to Ü with conditions",
+            "description": "' to ü and ⌥ü to ' and ⇧⌥ü to Ü with conditions",
             "manipulators": [
               {
                 "conditions": [
@@ -554,9 +604,40 @@
                 "type": "basic"
               },
               {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
                 "from": {
                   "key_code": "open_bracket",
-                  "modifiers": { "mandatory": ["shift"] }
+                  "modifiers": { "mandatory": ["option"] }
+                },
+                "to": [{ "key_code": "open_bracket" }],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "open_bracket",
+                  "modifiers": { "mandatory": ["option"] }
+                },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  { "key_code": "u" }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "open_bracket",
+                  "modifiers": { "mandatory": ["option", "shift"] }
                 },
                 "to": [
                   {
@@ -573,7 +654,7 @@
             ]
           },
           {
-            "description": "' to ä and ⇧' to Ä with conditions",
+            "description": "' to ä and ⌥ä to ' and ⇧⌥ä to Ä with conditions",
             "manipulators": [
               {
                 "conditions": [
@@ -596,9 +677,40 @@
                 "type": "basic"
               },
               {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.rider$",
+                      "^com\\.apple\\.Terminal$"
+                    ],
+                    "type": "frontmost_application_unless"
+                  }
+                ],
                 "from": {
                   "key_code": "quote",
-                  "modifiers": { "mandatory": ["shift"] }
+                  "modifiers": { "mandatory": ["option"] }
+                },
+                "to": [{ "key_code": "quote" }],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": { "mandatory": ["option"] }
+                },
+                "to": [
+                  {
+                    "key_code": "u",
+                    "modifiers": ["option"]
+                  },
+                  { "key_code": "a" }
+                ],
+                "type": "basic"
+              },
+              {
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": { "mandatory": ["option", "shift"] }
                 },
                 "to": [
                   {
