@@ -529,10 +529,21 @@
                                 "from": { "key_code": "quote" },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
-                                    { "key_code": "a" }
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "e",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "4",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -560,10 +571,21 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
-                                    { "key_code": "a" }
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "e",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "4",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -574,12 +596,20 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
                                     {
-                                        "key_code": "a",
-                                        "modifiers": ["shift"]
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "4",
+                                        "modifiers": ["option"]
                                     }
                                 ],
                                 "type": "basic"
@@ -602,10 +632,21 @@
                                 "from": { "key_code": "open_bracket" },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
-                                    { "key_code": "u" }
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -633,10 +674,21 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
-                                    { "key_code": "u" }
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -647,12 +699,20 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
                                     {
-                                        "key_code": "u",
-                                        "modifiers": ["shift"]
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "d",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["option"]
                                     }
                                 ],
                                 "type": "basic"
@@ -667,7 +727,8 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.jetbrains\\.rider$",
-                                            "^com\\.apple\\.Terminal$"
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.jetbrains\\.WebStorm$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -675,10 +736,21 @@
                                 "from": { "key_code": "semicolon" },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
-                                    { "key_code": "o" }
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "6",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -687,7 +759,8 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.jetbrains\\.rider$",
-                                            "^com\\.apple\\.Terminal$"
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.jetbrains\\.WebStorm$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -706,10 +779,21 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
-                                    { "key_code": "o" }
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "6",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             },
@@ -720,32 +804,21 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "u",
+                                        "key_code": "0",
                                         "modifiers": ["option"]
                                     },
                                     {
-                                        "key_code": "o",
-                                        "modifiers": ["shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "˜ to ~",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "non_us_backslash",
-                                    "modifiers": { "mandatory": ["shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "non_us_backslash",
-                                        "modifiers": ["shift"]
+                                        "key_code": "0",
+                                        "modifiers": ["option"]
                                     },
-                                    { "key_code": "spacebar" }
+                                    {
+                                        "key_code": "d",
+                                        "modifiers": ["option"]
+                                    },
+                                    {
+                                        "key_code": "6",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             }
