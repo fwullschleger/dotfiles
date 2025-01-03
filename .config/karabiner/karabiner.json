@@ -35,6 +35,359 @@
             ]
           },
           {
+            "description": "Hyper Key + h",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "name": "hyper",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "name": "hyper_sublayer_h",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_j",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_k",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_l",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_v",
+                    "type": "variable_if",
+                    "value": 0
+                  }
+                ],
+                "description": "Hyper Key + h: vim movement left",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_arrow" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Hyper Key + j",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "name": "hyper",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "name": "hyper_sublayer_h",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_j",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_k",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_l",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_v",
+                    "type": "variable_if",
+                    "value": 0
+                  }
+                ],
+                "description": "Hyper Key + j: vim movement down",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "down_arrow" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Hyper Key + k",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "name": "hyper",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "name": "hyper_sublayer_h",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_j",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_k",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_l",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_v",
+                    "type": "variable_if",
+                    "value": 0
+                  }
+                ],
+                "description": "Hyper Key + k: vim movement up",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "up_arrow" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Hyper Key + l",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "name": "hyper",
+                    "type": "variable_if",
+                    "value": 1
+                  },
+                  {
+                    "name": "hyper_sublayer_h",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_j",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_k",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_l",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper_sublayer_v",
+                    "type": "variable_if",
+                    "value": 0
+                  }
+                ],
+                "description": "Hyper Key + l: vim movement right",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "right_arrow" }],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "Hyper Key sublayer \"w\"",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "name": "hyper_sublayer_v",
+                    "type": "variable_if",
+                    "value": 0
+                  },
+                  {
+                    "name": "hyper",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Toggle Hyper sublayer w",
+                "from": {
+                  "key_code": "w",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "hyper_sublayer_w",
+                      "value": 1
+                    }
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "hyper_sublayer_w",
+                      "value": 0
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Window: first-fourth",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "x",
+                    "modifiers": ["control", "option"]
+                  },
+                  { "shell_command": "open -g rectangle://execute-action?name=first-fourth" }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Window: center-half",
+                "from": {
+                  "key_code": "c",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "x",
+                    "modifiers": ["control", "option"]
+                  },
+                  { "shell_command": "open -g rectangle://execute-action?name=center-half" }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Window: last-fourth",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "x",
+                    "modifiers": ["control", "option"]
+                  },
+                  { "shell_command": "open -g rectangle://execute-action?name=last-fourth" }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Window: toggle AeroSpace window floating / tiling mode",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f",
+                    "modifiers": ["control", "option"]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "hyper_sublayer_w",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Window: toggle AeroSpace window fullscreen",
+                "from": {
+                  "key_code": "m",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "f",
+                    "modifiers": ["control", "option", "shift"]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
             "description": "Hyper Key sublayer \"v\"",
             "manipulators": [
               {
