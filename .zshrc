@@ -24,9 +24,9 @@ compinit
 ###############################################################################
 #  Auto-Suggestions
 ###############################################################################
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '  ' autosuggest-accept
-bindkey '^ ' autosuggest-execute
+#source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#bindkey '  ' autosuggest-accept
+#bindkey '^ ' autosuggest-execute
 
 bindkey '^u' autosuggest-toggle
 bindkey '^l' vi-forward-word
