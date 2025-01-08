@@ -35,4 +35,14 @@ defaults write com.apple.dock "autohide" -bool "true" && killall Dock
 defaults write com.apple.spaces spans-displays -bool true
 defaults write com.apple.dock expose-group-apps -bool true
 
+###############################################################################
+# Rectangle App: Add an extra centering command with custom size
+###############################################################################
+# @see: https://github.com/rxhanson/Rectangle/blob/main/TerminalCommands.md#add-an-extra-centering-command-with-custom-size
+
+defaults write com.knollsoft.Rectangle specified -dict-add
+defaults write com.knollsoft.Rectangle specifiedHeight -float 9999
+defaults write com.knollsoft.Rectangle specifiedWidth -float 2000
+
+
 printf "Please log out and log back in to make all settings take effect.\n"
