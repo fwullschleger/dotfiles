@@ -1,0 +1,8 @@
+[user]
+	name = Fabio Wullschleger
+	email = dev-fw/git@slmail.me
+[core]
+	autocrlf = input
+	excludesfile = /Users/fw/.gitignore_global
+[push]
+	autoSetupRemote = true
