@@ -18,6 +18,9 @@ export EDITOR=/opt/homebrew/bin/vim
 ###############################################################################
 # Reevaluate the prompt string each time it's displaying a prompt
 setopt prompt_subst
+
+# Add Homebrew's Zsh Completions to FPATH
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
@@ -48,6 +51,13 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 ###############################################################################
 #  Aliases & Functions
 ###############################################################################
+# Dirs
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+
 # Eza
 export EZA_CONFIG_DIR=~/.config/eza
 alias l="eza -l --git -a"
