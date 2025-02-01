@@ -78,3 +78,18 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 # Fuzzy find a file and open it in vim
 fv() { vim "$(find . -type f -not -path '*/.*' | fzf)" }
+
+# Copy Context to clipboard
+# Copy Context to clipboard function for Bash
+cc() {
+  VENV_DIR="$HOME/scripts/venv"
+  
+  if [ ! -d "$VENV_DIR" ]; then
+    echo "Virtual environment not found in $VENV_DIR."
+    return 1
+  fi
+
+  source "$VENV_DIR/bin/activate"
+  ~/scripts/copy-files-to-clipboard.sh
+  deactivate
+}
