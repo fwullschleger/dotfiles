@@ -80,7 +80,6 @@ f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 fv() { vim "$(find . -type f -not -path '*/.*' | fzf)" }
 
 # Copy Context to clipboard
-# Copy Context to clipboard function for Bash
 cc() {
   VENV_DIR="$HOME/scripts/venv"
   
@@ -92,4 +91,15 @@ cc() {
   source "$VENV_DIR/bin/activate"
   ~/scripts/copy-files-to-clipboard.sh
   deactivate
+}
+
+bank2ynab() {
+  SCRIPT_PATH="$HOME/workspaces/bank2ynab/bank2ynab.sh"
+
+  if [ ! -x "$SCRIPT_PATH" ]; then
+    echo "Error: Script not found or not executable: $SCRIPT_PATH"
+    return 1
+  fi
+
+  "$SCRIPT_PATH" "$@"
 }
