@@ -14,3 +14,9 @@ nnoremap <C-u> <C-u>zz
 " maps Alt-A/X to perform an increment
 nnoremap <A-a> <C-a>
 nnoremap <A-x> <C-x>
+
+" smartcase only applies if ignorecase is set, smartcase overrides the behaviour of ignorecase
+" ignore cases in search
+set ignorecase
+"search works as case-insensitive if you only use lowercase letters; otherwise, it will search in case-sensitive mode.
+set smartcase
