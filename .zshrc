@@ -12,6 +12,8 @@ export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 # EDITOR
 export EDITOR=/opt/homebrew/bin/vim
+# Gemini-CLI
+export GOOGLE_CLOUD_PROJECT="keen-precinct-464918-p7"
 
 ###############################################################################
 #  Completions
@@ -49,7 +51,13 @@ eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 ###############################################################################
-#  Aliases & Functions
+#  FZF
+###############################################################################
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+###############################################################################
+#  Aliases
 ###############################################################################
 # Dirs
 alias ..="cd .."
@@ -65,10 +73,10 @@ alias ll="eza -a"
 alias lt="eza --tree --level=2 --long --git"
 alias ltree="eza --tree --level=2 --git"
 
-# FZF
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+###############################################################################
+#  Functions
+###############################################################################
 # Navigation
 # Change directory and list contents
 cl() { cd "$@" && l; }
