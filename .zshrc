@@ -57,7 +57,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ###############################################################################
-#  Aliases
+#  Aliases & Key Bindings
 ###############################################################################
 # Dirs
 alias ..="cd .."
@@ -73,6 +73,8 @@ alias ll="eza -a"
 alias lt="eza --tree --level=2 --long --git"
 alias ltree="eza --tree --level=2 --git"
 
+# VI Mode!!!
+bindkey jj vi-cmd-mode
 
 ###############################################################################
 #  Functions
