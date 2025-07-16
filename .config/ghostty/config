@@ -1,0 +1,8 @@
+theme = monokai pro
+font-size = 15
+mouse-hide-while-typing = true
+window-decoration = true
+macos-option-as-alt = true
+# keybind = global:cmd+/=toggle_quick_terminal
+# background-opacity = 0.7
+# background-blur-radius = 20 
