@@ -1,3 +1,13 @@
+export def find-medicationStatements [] {
+  get entry
+  | where { |entry_item|
+      let res = $entry_item.resource;
+      # only keep MedicationStatement resources
+      $res.resourceType? == "MedicationStatement"
+  }
+  | get resource
+}
+
 export def find-medicationStatement-by-productCode [productCode: string] {
   get entry
   | where { |entry_item|
