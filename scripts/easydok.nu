@@ -26,6 +26,10 @@ export def find-medicationStatement-by-productCode [productCode: string] {
   | get resource
 }
 
-export def print-medication-info [] {
+export def medicationStatements.print-medication-info [] {
    select contained.code.coding.0.display.0 dosage.text dosage.timing dosage.doseAndRate.0.doseQuantity
+}
+
+export def medicationStatements.whereNameContains [nameSubstring: string] {
+    where {$in.contained.code.coding | flatten | get display | any {str contains --ignore-case $nameSubstring}}
 }
