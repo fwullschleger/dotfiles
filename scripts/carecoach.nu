@@ -69,3 +69,7 @@ export def where-medication-has-multiple-pos [] {
   }
 }
 
+export def medicaments.whereNotDeleted [] {
+    where {$in.PFields | any { |pfield| $pfield.Nm == "ccoach.pre.deleted" and $pfield.Val == "0" }}
+}
+
