@@ -16,6 +16,9 @@ export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 export EDITOR=/opt/homebrew/bin/vim
 # Gemini-CLI
 #export GOOGLE_CLOUD_PROJECT="keen-precinct-464918-p7"
+# Homebrew OpenJDK/Java
+export PATH="$(brew --prefix openjdk)/bin:$PATH"
+export JAVA_HOME="$(brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home"
 
 ###############################################################################
 #  Completions
