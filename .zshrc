@@ -33,7 +33,7 @@ compinit
 ###############################################################################
 #  Auto-Suggestions
 ###############################################################################
-#source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 #bindkey '  ' autosuggest-accept
 #bindkey '^ ' autosuggest-execute
 
