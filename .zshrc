@@ -15,7 +15,7 @@ export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 # EDITOR
 export EDITOR=/opt/homebrew/bin/vim
 # Gemini-CLI
-export GOOGLE_CLOUD_PROJECT="keen-precinct-464918-p7"
+#export GOOGLE_CLOUD_PROJECT="keen-precinct-464918-p7"
 
 ###############################################################################
 #  Completions
