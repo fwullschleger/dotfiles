@@ -21,26 +21,8 @@ export PATH="$(brew --prefix openjdk)/bin:$PATH"
 export JAVA_HOME="$(brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home"
 
 ###############################################################################
-#  Completions
+#  Aliases & Key Bindings
 ###############################################################################
-# Reevaluate the prompt string each time it's displaying a prompt
-setopt prompt_subst
-
-# Add Homebrew's Zsh Completions to FPATH
-fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit
-compinit
-
-###############################################################################
-#  Auto-Suggestions
-###############################################################################
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-#bindkey '  ' autosuggest-accept
-#bindkey '^ ' autosuggest-execute
-
-bindkey '^u' autosuggest-toggle
 bindkey '^l' vi-forward-word
 bindkey '^h' vi-backward-word
 bindkey '^k' up-line-or-search
@@ -49,21 +31,9 @@ bindkey '^j' down-line-or-search
 # VI Mode!!!
 bindkey jj vi-cmd-mode
 
-###############################################################################
-#  Starship Prompt
-###############################################################################
-eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+# Zoxide
+alias j='z'
 
-###############################################################################
-#  FZF
-###############################################################################
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-###############################################################################
-#  Aliases & Key Bindings
-###############################################################################
 # Dirs
 alias ..="cd .."
 alias ...="cd ../.."
@@ -78,8 +48,38 @@ alias ll="eza -a"
 alias lt="eza --tree --level=2 --long --git"
 alias ltree="eza --tree --level=2 --git"
 
-# VI Mode!!!
-bindkey jj vi-cmd-mode
+###############################################################################
+#  Auto-Suggestions
+###############################################################################
+#source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+#bindkey '  ' autosuggest-accept
+#bindkey '^ ' autosuggest-execute
+#bindkey '^u' autosuggest-toggle
+
+###############################################################################
+#  Completions
+###############################################################################
+# Reevaluate the prompt string each time it's displaying a prompt
+setopt prompt_subst
+
+# Add Homebrew's Zsh Completions to FPATH
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit
+compinit
+
+###############################################################################
+#  Starship Prompt
+###############################################################################
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+###############################################################################
+#  FZF
+###############################################################################
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ###############################################################################
 #  Functions
@@ -123,3 +123,4 @@ bank2ynab() {
 #  Evals
 ###############################################################################
 eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
