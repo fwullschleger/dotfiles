@@ -69,11 +69,11 @@ export def where-medication-has-multiple-pos [] {
   }
 }
 
-export def "where Medicaments areNotDeleted" [] {
+export def "Medicaments Filter PFields NotDeleted" [] {
     where {$in.PFields | any { |pfield| $pfield.Nm == "ccoach.pre.deleted" and $pfield.Val == "0" }}
 }
 
-export def "where PFieldAndVal contains" [pfieldSubstring: string, valSubstring: string] {
-    where {$in.PFields | any { |pfield| ($pfield.Nm | str contains --ignore-case $pfieldSubstring) and ($pfield.Val | str contains --ignore-case $valSubstring)}}
+export def "Medicaments Filter PFields Contains InputNameAndValueSubstring" [nameSubstring: string, valSubstring: string] {
+    where {$in.PFields | any { |pfield| ($pfield.Nm | str contains --ignore-case $nameSubstring) and ($pfield.Val | str contains --ignore-case $valSubstring)}}
 }
 
