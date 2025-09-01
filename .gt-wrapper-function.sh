@@ -14,12 +14,24 @@ gt() {
 
   # intercept "worktree" or "wt"
   if [[ "$cmd1" == "worktree" || "$cmd1" == "wt" ]]; then
-    # subcommand: ls, rm, cd
+    # subcommand: ls, add, rm, cd
     cmd2=${1:-}; shift
 
     case "$cmd2" in
       ls)
         git worktree list
+        ;;
+
+      add)
+        # create a new worktree and cd into it
+        if [[ $# -lt 1 ]]; then
+          echo "Usage: gt wt add <path> [<commit-ish>]" >&2
+          return 1
+        fi
+        local dest=$1; shift
+        local ref=${1:-HEAD}
+        git worktree add "$dest" "$ref" || return
+        cd "$dest"
         ;;
 
       rm)
@@ -49,7 +61,7 @@ gt() {
         ;;
 
       *)
-        echo "Usage: gt {worktree|wt} {ls|rm|cd}" >&2
+        echo "Usage: gt {worktree|wt} {ls|add|rm|cd}" >&2
         return 1
         ;;
     esac
