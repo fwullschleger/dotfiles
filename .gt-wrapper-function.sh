@@ -1,7 +1,6 @@
 # A thin wrapper around your existing "gt" command to add
 # `gt worktree` (or `gt wt`) subcommands via fzf.
 
-# define the wrapper function
 gt() {
   local cmd1 cmd2 sel
 
@@ -20,30 +19,31 @@ gt() {
 
     case "$cmd2" in
       ls)
-        git worktree list --porcelain \
-          | awk '/^worktree /{print $2}'
+        git worktree list
         ;;
 
       rm)
         sel=$(
-          git worktree list --porcelain \
-            | awk '/^worktree /{print $2}' \
-            | fzf --prompt="gt rm> "
+          git worktree list \
+          | fzf --prompt="gt rm> " \
+          | awk '{print $1}'
         )
         if [[ -z "$sel" ]]; then
-          echo "gt wt rm: aborted" >&2; return 1
+          echo "gt wt rm: aborted" >&2
+          return 1
         fi
         git worktree remove "$sel"
         ;;
 
       cd)
         sel=$(
-          git worktree list --porcelain \
-            | awk '/^worktree /{print $2}' \
-            | fzf --prompt="gt cd> "
+          git worktree list \
+          | fzf --prompt="gt cd> " \
+          | awk '{print $1}'
         )
         if [[ -z "$sel" ]]; then
-          echo "gt wt cd: aborted" >&2; return 1
+          echo "gt wt cd: aborted" >&2
+          return 1
         fi
         cd "$sel"
         ;;
