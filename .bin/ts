@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# ts: fzf-powered Tailscale SSH helper
+# 
+# Usage:
+#   ts ls
+#   ts cn <user>
+#   ts connect <user>
+
+set -euo pipefail
+
+usage() {
+  echo "Usage: ts {ls|cn <user>|connect <user>}" >&2
+  exit 1
+}
+
+sub=${1:-}
+shift || true
+
+case "$sub" in
+  ls)
+    # list devices
+    tailscale status
+    ;;
+
+  cn|connect)
+    user=${1:-}
+    [[ -z "$user" ]] && usage
+
+    # pick an entry with fzf
+    sel=$(
+      tailscale status |
+        fzf --prompt="ts connect (${user})> " \
+            --height=80% --border --reverse
+    ) || { echo "Aborted" >&2; exit 1; }
+
+    # get column 2 = machine name
+    host=$(awk '{print $2}' <<<"$sel")
+    [[ -z "$host" ]] && { echo "Could not parse hostname" >&2; exit 1; }
+
+    # optional: warn if offline
+    if grep -qw "offline" <<<"$sel"; then
+      read -rp "Selected '$host' appears offline. Continue? [y/N]: " ans
+      [[ "$ans" =~ ^[Yy] ]] || exit 1
+    fi
+
+    exec ssh "${user}@${host}"
+    ;;
+
+  *)
+    usage
+    ;;
+esac

@@ -6,7 +6,7 @@ export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 # Homebrew
 export PATH=/opt/homebrew/bin:$PATH
 # HOME bin
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.bin:$PATH"
 # Config Home
 export XDG_CONFIG_HOME="$HOME/.config"
 # .Net

@@ -1,0 +1,5 @@
+#!/bin/bash
+(
+	cd ~/workspaces/mac-setup/mac-playbook && \
+	ansible-playbook main.yml --ask-become-pass --ask-vault-pass --tags homebrew
+)
