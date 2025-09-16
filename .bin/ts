@@ -29,8 +29,7 @@ case "$sub" in
     # pick an entry with fzf
     sel=$(
       tailscale status |
-        fzf --prompt="ts connect (${user})> " \
-            --height=80% --border --reverse
+        fzf --prompt="ts connect (${user})> " --height=30% --border --reverse \
     ) || { echo "Aborted" >&2; exit 1; }
 
     # get column 2 = machine name

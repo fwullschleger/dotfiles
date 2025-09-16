@@ -37,7 +37,7 @@ gt() {
       rm)
         sel=$(
           git worktree list \
-          | fzf --prompt="gt rm> " \
+          | fzf --prompt="gt rm> " --height=30% --border --reverse \
           | awk '{print $1}'
         )
         if [[ -z "$sel" ]]; then
@@ -50,7 +50,7 @@ gt() {
       cd)
         sel=$(
           git worktree list \
-          | fzf --prompt="gt cd> " \
+          | fzf --prompt="gt cd> " --height=30% --border --reverse \
           | awk '{print $1}'
         )
         if [[ -z "$sel" ]]; then
