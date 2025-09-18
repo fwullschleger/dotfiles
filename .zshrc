@@ -21,6 +21,8 @@ export PATH="$(brew --prefix openjdk)/bin:$PATH"
 export JAVA_HOME="$(brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home"
 # Gradle
 export PATH="/opt/homebrew/opt/gradle@8/bin:$PATH"
+# Ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 
 ###############################################################################
 #  Aliases & Key Bindings
