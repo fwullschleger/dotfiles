@@ -1,57 +1,98 @@
-# A thin wrapper around your existing "gt" command to add
-# `gt worktree` (or `gt wt`) subcommands via fzf.
+# Simpler gt worktree wrapper:
+# - add: supports optional "-b <branch>"
+# - rm/remove: supports optional "-f/--force" (and "--no-force")
+# - ls, cd helpers remain
+# - other subcommands fall through to `git worktree`
 
 gt() {
-  local cmd1 cmd2 sel
+  local cmd1 cmd2
 
-  # if no args, just call real gt
   if [[ $# -eq 0 ]]; then
     command gt
     return
   fi
 
-  cmd1=$1; shift
+  cmd1=$1
+  shift
 
-  # intercept "worktree" or "wt"
   if [[ "$cmd1" == "worktree" || "$cmd1" == "wt" ]]; then
-    # subcommand: ls, add, rm, cd
-    cmd2=${1:-}; shift
+    cmd2=${1:-}
+    [[ -n "$cmd2" ]] && shift
 
     case "$cmd2" in
-      ls)
-        git worktree list
+      ls | list)
+        git worktree list "$@"
         ;;
 
       add)
-        # create a new worktree and cd into it
+        # Usage: gt wt add [-b <branch>] <path> [<commit-ish>]
+        local branch_arg=()
+        if [[ "${1:-}" == "-b" ]]; then
+          if [[ -z "${2:-}" ]]; then
+            echo "gt wt add: -b requires <branch>" >&2
+            return 1
+          fi
+          branch_arg=(-b "$2")
+          shift 2
+        fi
+
         if [[ $# -lt 1 ]]; then
-          echo "Usage: gt wt add <path> [<commit-ish>]" >&2
+          echo "Usage: gt wt add [-b <branch>] <path> [<commit-ish>]" >&2
           return 1
         fi
-        local dest=$1; shift
-        local ref=${1:-HEAD}
-        git worktree add "$dest" "$ref" || return
+
+        local dest=$1
+        shift
+
+        if [[ $# -gt 0 ]]; then
+          git worktree add "${branch_arg[@]}" "$dest" "$1" || return
+        else
+          git worktree add "${branch_arg[@]}" "$dest" || return
+        fi
+
         cd "$dest"
         ;;
 
-      rm)
-        sel=$(
-          git worktree list \
-          | fzf --prompt="gt rm> " --height=30% --border --reverse \
-          | awk '{print $1}'
-        )
-        if [[ -z "$sel" ]]; then
-          echo "gt wt rm: aborted" >&2
-          return 1
+      rm | remove)
+        # Usage: gt wt rm [-f|--force|--no-force] [<worktree>]
+        local force_flag=()
+        case "${1:-}" in
+          -f | --force)
+            force_flag=(--force)
+            shift
+            ;;
+          --no-force)
+            force_flag=(--no-force)
+            shift
+            ;;
+        esac
+
+        if [[ $# -gt 0 ]]; then
+          # Path provided -> pass through
+          git worktree remove "${force_flag[@]}" "$@"
+        else
+          # No path -> interactive picker (robust parsing)
+          local sel
+          sel=$(
+            git worktree list --porcelain |
+              awk '/^worktree /{ sub(/^worktree /,""); print }' |
+              fzf --prompt="gt wt rm> " --height=30% --border --reverse
+          )
+          if [[ -z "$sel" ]]; then
+            echo "gt wt rm: aborted" >&2
+            return 1
+          fi
+          git worktree remove "${force_flag[@]}" "$sel"
         fi
-        git worktree remove "$sel"
         ;;
 
       cd)
+        # Interactive cd to a worktree (robust parsing)
+        local sel
         sel=$(
-          git worktree list \
-          | fzf --prompt="gt cd> " --height=30% --border --reverse \
-          | awk '{print $1}'
+          git worktree list --porcelain |
+            awk '/^worktree /{ sub(/^worktree /,""); print }' |
+            fzf --prompt="gt wt cd> " --height=30% --border --reverse
         )
         if [[ -z "$sel" ]]; then
           echo "gt wt cd: aborted" >&2
@@ -60,14 +101,16 @@ gt() {
         cd "$sel"
         ;;
 
+      "" )
+        git worktree
+        ;;
+
       *)
-        echo "Usage: gt {worktree|wt} {ls|add|rm|cd}" >&2
-        return 1
+        # Fall through for any other subcommand
+        git worktree "$cmd2" "$@"
         ;;
     esac
-
   else
-    # not a worktree sub-command → hand off to the real gt
     command gt "$cmd1" "$@"
   fi
 }
