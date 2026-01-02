@@ -1,0 +1,42 @@
+-- Audio Switcher for Hammerspoon
+
+local function getDeviceChoices()
+    local devices = hs.audiodevice.allOutputDevices()
+    local choices = {}
+    local currentUid = hs.audiodevice.current(false).uid
+
+    for i, device in ipairs(devices) do
+        local icon = device:outputMuted() and '🔇' or '🔊'
+        local subText = icon
+
+        if device:outputVolume() then
+            subText = subText .. ' Volume ' .. math.floor(device:outputVolume()) .. '%'
+        end
+
+        choices[i] = {
+            text = (currentUid == device:uid() and "➜ " or "    ") .. device:name(),
+            subText = "    " .. subText,
+            uuid = device:uid(),
+        }
+    end
+
+    return choices
+end
+
+local function handleAudioChoice(choice)
+    if not choice then return end
+
+    local device = hs.audiodevice.findDeviceByUID(choice['uuid'])
+    device:setDefaultOutputDevice()
+    device:setOutputMuted(false)
+
+    hs.alert('Switched to ' .. choice['text'])
+end
+
+local audioChooser = hs.chooser.new(handleAudioChoice)
+audioChooser:width(40)
+
+hs.hotkey.bind(hyper, '7', "Audio Switcher", function()
+    audioChooser:choices(getDeviceChoices())
+    audioChooser:show()
+end)
