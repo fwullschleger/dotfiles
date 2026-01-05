@@ -7,6 +7,7 @@ local M = {}
 -- Configuration
 -- ============================================
 local chooserKey = "z"
+local muteKey = "d"
 
 local inputDevices = {
     ["u"] = "MacBook Pro Microphone",
@@ -105,6 +106,11 @@ end
 function M.handleKey(keyChar)
     if keyChar == chooserKey then
         M.showChooser()
+        return true
+    end
+
+    if keyChar == muteKey then
+        M.muteInput()
         return true
     end
 

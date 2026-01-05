@@ -13,7 +13,6 @@ hs.hotkey.alertDuration = 0
 -- ============================================
 local audioOutput = require('audio-output')
 local audioInput = require('audio-input')
-local mediaControls = require('media-controls')
 
 -- ============================================
 -- Key Code Mappings (German QWERTZ layout)
@@ -92,9 +91,6 @@ local function handleEvent(event)
 
         if keyChar then
             -- Try each module's handler
-            if mediaControls.handleKey(keyChar) then
-                return true
-            end
             if audioOutput.handleKey(keyChar) then
                 return true
             end
