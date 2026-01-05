@@ -1,12 +1,17 @@
--- Audio Switcher for Hammerspoon
+-- Audio Output Switcher for Hammerspoon
+-- Exports functions to be called from main eventtap in init.lua
+
+local M = {}
 
 -- ============================================
--- Configuration: Add your favorite devices here
+-- Configuration
 -- ============================================
-local favoriteDevices = {
-    { key = '0', name = "MacBook Pro Speakers" },
-    { key = '8', name = "AirPods Pro Operator" },
-    { key = '9', name = "Jabra Evolve 65" },
+local chooserKey = "7"
+
+local outputDevices = {
+    ["8"] = "MacBook Pro Speakers",
+    ["9"] = "AirPods Pro Operator",
+    ["0"] = "Jabra Evolve 65",
 }
 
 -- ============================================
@@ -16,7 +21,6 @@ local favoriteDevices = {
 local function findDeviceByName(searchName)
     local devices = hs.audiodevice.allOutputDevices()
     for _, device in ipairs(devices) do
-        -- Partial match (case-insensitive)
         if string.find(string.lower(device:name()), string.lower(searchName)) then
             return device
         end
@@ -24,16 +28,33 @@ local function findDeviceByName(searchName)
     return nil
 end
 
-local function switchToDevice(deviceName)
+function M.switchToDevice(deviceName)
     local device = findDeviceByName(deviceName)
     if device then
         device:setDefaultOutputDevice()
         device:setOutputMuted(false)
         hs.alert('🔊 ' .. device:name())
     else
-        hs.alert('⚠️ Device not found: ' .. deviceName)
+        hs.alert('⚠️ Output device not found: ' .. deviceName)
     end
 end
+
+function M.muteOutput()
+    local device = hs.audiodevice.defaultOutputDevice()
+    if device then
+        local muted = device:outputMuted()
+        device:setOutputMuted(not muted)
+        if muted then
+            hs.alert('🔊 Output Unmuted')
+        else
+            hs.alert('🔇 Output Muted')
+        end
+    end
+end
+
+-- ============================================
+-- Chooser
+-- ============================================
 
 local function getDeviceChoices()
     local devices = hs.audiodevice.allOutputDevices()
@@ -58,32 +79,42 @@ local function getDeviceChoices()
     return choices
 end
 
-local function handleAudioChoice(choice)
+local function handleChoice(choice)
     if not choice then return end
 
     local device = hs.audiodevice.findDeviceByUID(choice['uuid'])
-    device:setDefaultOutputDevice()
-    device:setOutputMuted(false)
+    if device then
+        device:setDefaultOutputDevice()
+        device:setOutputMuted(false)
+        hs.alert('🔊 ' .. device:name())
+    end
+end
 
-    hs.alert('🔊 ' .. device:name())
+local outputChooser = hs.chooser.new(handleChoice)
+outputChooser:width(40)
+
+function M.showChooser()
+    outputChooser:choices(getDeviceChoices())
+    outputChooser:show()
 end
 
 -- ============================================
--- Hotkey Bindings
+-- Action Handler (called from eventtap)
 -- ============================================
 
--- Chooser dialog
-local audioChooser = hs.chooser.new(handleAudioChoice)
-audioChooser:width(40)
+function M.handleKey(keyChar)
+    if keyChar == chooserKey then
+        M.showChooser()
+        return true
+    end
 
-hs.hotkey.bind(hyper, '7', "Audio Switcher", function()
-    audioChooser:choices(getDeviceChoices())
-    audioChooser:show()
-end)
+    local deviceName = outputDevices[keyChar]
+    if deviceName then
+        M.switchToDevice(deviceName)
+        return true
+    end
 
--- Direct device switching
-for _, fav in ipairs(favoriteDevices) do
-    hs.hotkey.bind(hyper, fav.key, "Switch to " .. fav.name, function()
-        switchToDevice(fav.name)
-    end)
+    return false
 end
+
+return M
