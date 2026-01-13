@@ -10,9 +10,9 @@ local chooserKey = "z"
 local muteKey = "d"
 
 local inputDevices = {
-    ["u"] = "MacBook Pro Microphone",
-    ["i"] = "AirPods Pro Operator",
-    ["o"] = "Jabra Evolve 65",
+    ["o"] = "MacBook Pro Microphone",
+    ["u"] = "AirPods Pro Operator",
+    ["i"] = "Jabra Evolve 65",
 }
 
 -- ============================================
@@ -100,27 +100,28 @@ function M.showChooser()
 end
 
 -- ============================================
--- Action Handler (called from eventtap)
+-- Hotkey Bindings
 -- ============================================
 
-function M.handleKey(keyChar)
-    if keyChar == chooserKey then
+function M.bindHotkeys()
+    local hyper = {"cmd", "alt", "shift", "ctrl"}
+
+    -- Microphone Chooser
+    hs.hotkey.bind(hyper, chooserKey, function()
         M.showChooser()
-        return true
-    end
+    end)
 
-    if keyChar == muteKey then
+    -- Mute/Unmute
+    hs.hotkey.bind(hyper, muteKey, function()
         M.muteInput()
-        return true
-    end
+    end)
 
-    local deviceName = inputDevices[keyChar]
-    if deviceName then
-        M.switchToDevice(deviceName)
-        return true
+    -- Bind each configured input device
+    for key, deviceName in pairs(inputDevices) do
+        hs.hotkey.bind(hyper, key, function()
+            M.switchToDevice(deviceName)
+        end)
     end
-
-    return false
 end
 
 return M
