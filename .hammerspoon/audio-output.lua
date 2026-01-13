@@ -10,8 +10,8 @@ local chooserKey = "7"
 
 local outputDevices = {
     ["0"] = "MacBook Pro Speakers",
-    ["8"] = "AirPods Pro Operator",
     ["9"] = "Jabra Evolve 65",
+    ["8"] = "AirPods Pro Operator",
 }
 
 -- ============================================

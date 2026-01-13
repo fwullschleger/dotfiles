@@ -11,8 +11,8 @@ local muteKey = "d"
 
 local inputDevices = {
     ["o"] = "MacBook Pro Microphone",
-    ["u"] = "AirPods Pro Operator",
     ["i"] = "Jabra Evolve 65",
+    ["u"] = "AirPods Pro Operator",
 }
 
 -- ============================================
