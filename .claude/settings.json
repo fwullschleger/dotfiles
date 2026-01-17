@@ -43,7 +43,7 @@
       "Bash(cargo test:*)",
       "Bash(mkdir:*)",
       "Bash(touch:*)",
-      "Bash(echo:*)",
+      "Bash(echo:*)"
     ],
     "ask": [
       "Bash(git add:*)",
