@@ -1,15 +1,4 @@
 {
-  "defaultMode": "plan",
-  "allowedTools": [
-    "Read",
-    "Write",
-    "Edit",
-    "MultiEdit",
-    "Glob",
-    "Grep",
-    "LS",
-    "Bash"
-  ],
   "permissions": {
     "allow": [
       "Read(./**)",
@@ -44,31 +33,6 @@
       "Bash(mkdir:*)",
       "Bash(touch:*)",
       "Bash(echo:*)"
-    ],
-    "ask": [
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git checkout:*)",
-      "Bash(git push:*)",
-      "Bash(git pull:*)",
-      "Bash(git merge:*)",
-      "Bash(git rebase:*)",
-      "Bash(git reset:*)",
-      "Bash(npm install:*)",
-      "Bash(npm uninstall:*)",
-      "Bash(yarn add:*)",
-      "Bash(yarn remove:*)",
-      "Bash(pnpm add:*)",
-      "Bash(pnpm remove:*)",
-      "Bash(pip install:*)",
-      "Bash(cargo add:*)",
-      "Bash(dotnet add package:*)",
-      "Bash(rm:*)",
-      "Bash(mv:*)",
-      "Bash(cp:*)",
-      "Bash(curl:*)",
-      "Bash(wget:*)",
-      "WebFetch"
     ],
     "deny": [
       "Read(./.env)",
@@ -108,6 +72,31 @@
       "Bash(source /dev:*)",
       "Bash(nc:*)",
       "Bash(netcat:*)"
+    ],
+    "ask": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(git reset:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(yarn add:*)",
+      "Bash(yarn remove:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pip install:*)",
+      "Bash(cargo add:*)",
+      "Bash(dotnet add package:*)",
+      "Bash(rm:*)",
+      "Bash(mv:*)",
+      "Bash(cp:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "WebFetch"
     ]
   },
   "enabledPlugins": {
@@ -115,5 +104,20 @@
     "code-review@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true
   },
-  "model": "sonnet"
+  "defaultMode": "plan",
+  "allowedTools": [
+    "Read",
+    "Write",
+    "Edit",
+    "MultiEdit",
+    "Glob",
+    "Grep",
+    "LS",
+    "Bash"
+  ],
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  }
 }
