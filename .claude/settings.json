@@ -119,5 +119,37 @@
     "type": "command",
     "command": "npx -y ccstatusline@latest",
     "padding": 0
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/ccnotify/ccnotify.py UserPromptSubmit"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/ccnotify/ccnotify.py Stop"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/ccnotify/ccnotify.py Notification"
+          }
+        ]
+      }
+    ]
   }
 }
