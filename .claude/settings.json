@@ -99,27 +99,6 @@
       "WebFetch"
     ]
   },
-  "enabledPlugins": {
-    "claude-mermaid@claude-mermaid": true,
-    "code-review@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true
-  },
-  "defaultMode": "plan",
-  "allowedTools": [
-    "Read",
-    "Write",
-    "Edit",
-    "MultiEdit",
-    "Glob",
-    "Grep",
-    "LS",
-    "Bash"
-  ],
-  "statusLine": {
-    "type": "command",
-    "command": "npx -y ccstatusline@latest",
-    "padding": 0
-  },
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -151,5 +130,26 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "claude-mermaid@claude-mermaid": true,
+    "code-review@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true
+  },
+  "defaultMode": "plan",
+  "allowedTools": [
+    "Read",
+    "Write",
+    "Edit",
+    "MultiEdit",
+    "Glob",
+    "Grep",
+    "LS",
+    "Bash"
+  ]
 }
