@@ -6,7 +6,7 @@
       "Bash(cat:*)",
       "Bash(dotnet build:*)",
       "Bash(dotnet test:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
       "Bash(find:*)",
       "Bash(gh pr diff:*)",
       "Bash(gh pr view:*)",
@@ -39,7 +39,7 @@
       "mcp__plugin_claude-mermaid_mermaid__mermaid_preview"
       "Read(./**)",
       "Skill(claude-mermaid:mermaid-diagrams)",
-      "Write(./**)",
+      "Write(./**)"
     ],
     "deny": [
       "Read(./.env)",
