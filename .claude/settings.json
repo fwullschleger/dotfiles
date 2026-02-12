@@ -36,7 +36,7 @@
       "LS(./**)",
       "mcp__context7__query-docs",
       "mcp__context7__resolve-library-id",
-      "mcp__plugin_claude-mermaid_mermaid__mermaid_preview"
+      "mcp__plugin_claude-mermaid_mermaid__mermaid_preview",
       "Read(./**)",
       "Skill(claude-mermaid:mermaid-diagrams)",
       "Write(./**)"
