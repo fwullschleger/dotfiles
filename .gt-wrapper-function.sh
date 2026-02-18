@@ -25,7 +25,7 @@ gt() {
         ;;
 
       add)
-        # Usage: gt wt add [-b <branch>] <path> [<commit-ish>]
+        # Usage: gt wt add -b <new-branch> <path> <existing-branch>
         local branch_arg=()
         if [[ "${1:-}" == "-b" ]]; then
           if [[ -z "${2:-}" ]]; then
