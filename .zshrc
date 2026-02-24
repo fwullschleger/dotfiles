@@ -85,10 +85,43 @@ compinit
 #
 _gt_yargs_completions()
 {
+  local cmd1="${words[2]}"
+  local cmd2="${words[3]}"
+
+  if [[ "$cmd1" == "wt" || "$cmd1" == "worktree" ]] && [[ "$cmd2" == "add" ]]; then
+    # Parse words after "add" (index 4 onward, up to but not including current)
+    local skip_next=0 positional=0
+    for (( i=4; i<CURRENT; i++ )); do
+      if (( skip_next )); then skip_next=0; continue; fi
+      if [[ "${words[$i]}" == "-b" ]]; then skip_next=1; else (( positional++ )); fi
+    done
+
+    # What is the current word?
+    if [[ "${words[CURRENT-1]}" == "-b" ]]; then
+      # completing the branch name that follows -b
+      local -a branches
+      branches=( ${(f)"$(git branch --format='%(refname:short)' 2>/dev/null)"} )
+      _describe 'branch' branches
+    elif (( positional == 0 )); then
+      # first positional: destination path
+      _files -/
+    elif (( positional == 1 )); then
+      # second positional: existing branch to check out
+      local -a branches
+      branches=( ${(f)"$(git branch --format='%(refname:short)' 2>/dev/null)"} )
+      _describe 'branch' branches
+    else
+      # offer -b flag if not yet used
+      local -a opts; opts=('-b')
+      _describe 'option' opts
+    fi
+    return
+  fi
+
+  # Default: delegate to graphite yargs completions
   local reply
   local si=$IFS
-  IFS=$'
-' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" gt --get-yargs-completions "${words[@]}"))
+  IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" gt --get-yargs-completions "${words[@]}"))
   IFS=$si
   _describe 'values' reply
 }
