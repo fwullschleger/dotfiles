@@ -109,6 +109,8 @@ gt() {
         git worktree "$cmd2" "$@"
         ;;
     esac
+  elif [[ "$cmd1" == "submit" ]]; then
+    command gt submit --confirm "$@"
   else
     command gt "$cmd1" "$@"
   fi
