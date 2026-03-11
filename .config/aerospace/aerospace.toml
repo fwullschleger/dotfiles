@@ -140,6 +140,10 @@ alt-h = 'focus left'
 alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
+alt-a = 'focus left'
+alt-s = 'focus down'
+alt-w = 'focus up'
+alt-d = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 alt-shift-h = 'move left'
