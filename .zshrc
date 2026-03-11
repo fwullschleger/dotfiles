@@ -137,7 +137,7 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 ###############################################################################
 #  FZF
 ###############################################################################
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
+export FZF_DEFAULT_COMMAND='fd --type f --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ###############################################################################
