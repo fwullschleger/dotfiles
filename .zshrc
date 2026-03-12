@@ -180,6 +180,26 @@ bank2ynab() {
   "$SCRIPT_PATH" "$@"
 }
 
+mdr() {
+  local config="$HOME/.config/vantage/config.toml"
+  [[ -f "$config" ]] || { echo "No config found at $config"; return 1; }
+  
+  local selected
+  selected=$(python3 -c "
+  import tomllib
+  with open('$config', 'rb') as f:
+    data = tomllib.load(f)
+  for r in data.get('repos', []):
+    print(f\"{r['name']}\t{r['path']}\")
+  " | fzf --multi --with-nth=1,2 --delimiter='\t' --header='Select repos to remove (TAB to multi-select)' | cut -f1)
+  
+  [[ -z "$selected" ]] && { echo "Nothing selected."; return 0; }
+  
+  echo "$selected" | while read -r name; do
+    md remove -n "$name"
+  done
+}
+
 source ~/.gt-wrapper-function.sh
 
 ###############################################################################
