@@ -21,8 +21,6 @@ export PATH="$(brew --prefix openjdk)/bin:$PATH"
 export JAVA_HOME="$(brew --prefix openjdk)/libexec/openjdk.jdk/Contents/Home"
 # Gradle
 export PATH="/opt/homebrew/opt/gradle@8/bin:$PATH"
-# fd options
-export FD_OPTIONS="--hidden --no-ignore"
 # Ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 # JetBrains Toolbox Scripts
@@ -55,6 +53,9 @@ alias l="eza -l --git -a"
 alias ll="eza -a"
 alias lt="eza --tree --level=2 --long --git"
 alias ltree="eza --tree --level=2 --git"
+
+# fd
+alias fd='fd --hidden --no-ignore'
 
 ###############################################################################
 #  Auto-Suggestions
