@@ -86,6 +86,7 @@ outer.right =      0
 q = 'main'
 e = 'main'
 x = 'main'
+c = 'main'
 y = 'secondary'
 
 ###############################################################################
@@ -176,6 +177,7 @@ alt-0 = 'workspace 0'
 alt-q = 'workspace q'
 alt-e = 'workspace e'
 alt-x = 'workspace x'
+alt-c = 'workspace c'
 alt-y = 'workspace y'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -192,6 +194,7 @@ alt-shift-0 = 'move-node-to-workspace 0'
 alt-shift-q = 'move-node-to-workspace q'
 alt-shift-e = 'move-node-to-workspace e'
 alt-shift-x = 'move-node-to-workspace x'
+alt-shift-c = 'move-node-to-workspace c'
 alt-shift-y = 'move-node-to-workspace y'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
