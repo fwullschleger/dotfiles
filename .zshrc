@@ -25,6 +25,8 @@ export PATH="/opt/homebrew/opt/gradle@8/bin:$PATH"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 # JetBrains Toolbox Scripts
 export PATH="$HOME/Library/Application Support/JetBrains/Toolbox/scripts:$PATH"
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
 
 ###############################################################################
 #  Aliases & Key Bindings
