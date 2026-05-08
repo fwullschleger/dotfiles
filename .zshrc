@@ -11,7 +11,7 @@ export PATH="$HOME/.bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 # .Net
 export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+export PATH=$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH
 # EDITOR
 export EDITOR=/opt/homebrew/bin/vim
 # Gemini-CLI
@@ -220,3 +220,5 @@ eval "$(zoxide init zsh)"
 # Autoloads
 ###############################################################################
 autoload -U zmv
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
