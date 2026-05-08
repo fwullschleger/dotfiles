@@ -59,6 +59,10 @@ alias ltree="eza --tree --level=2 --git"
 # fd
 alias fd='fd --hidden --no-ignore'
 
+# claude
+alias cc='claude'
+alias c1m='claude-toggle-1m'
+
 ###############################################################################
 #  Auto-Suggestions
 ###############################################################################
@@ -158,20 +162,6 @@ f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 # Fuzzy find a file and open it in vim
 fv() { vim "$(find . -type f -not -path '*/.*' | fzf)" }
 
-# Copy Context to clipboard
-cc() {
-  VENV_DIR="$HOME/scripts/venv"
-  
-  if [ ! -d "$VENV_DIR" ]; then
-    echo "Virtual environment not found in $VENV_DIR."
-    return 1
-  fi
-
-  source "$VENV_DIR/bin/activate"
-  ~/scripts/copy-files-to-clipboard.sh
-  deactivate
-}
-
 bank2ynab() {
   SCRIPT_PATH="$HOME/workspaces/bank2ynab/bank2ynab.sh"
 
@@ -201,6 +191,21 @@ mdr() {
   echo "$selected" | while read -r name; do
     md remove -n "$name"
   done
+}
+
+claude-toggle-1m() {
+  local file="$HOME/workspaces/sanetics-workspace/.claude/settings.json"
+  local current
+  current=$(jq -r '.env.CLAUDE_CODE_DISABLE_1M_CONTEXT // "0"' "$file")
+  local new_val="1"
+  [[ "$current" == "1" ]] && new_val="0"
+  local tmp=$(mktemp)
+  jq --arg v "$new_val" '.env.CLAUDE_CODE_DISABLE_1M_CONTEXT = $v' "$file" > "$tmp" && mv "$tmp" "$file"
+  if [[ "$new_val" == "1" ]]; then
+    echo "1M context: DISABLED"
+  else
+    echo "1M context: ENABLED"
+  fi
 }
 
 source ~/.gt-wrapper-function.sh
