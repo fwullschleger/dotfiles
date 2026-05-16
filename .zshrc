@@ -61,7 +61,7 @@ alias fd='fd --hidden --no-ignore'
 
 # claude
 alias cc='claude'
-alias c1m='claude-toggle-1m'
+alias ccm='claude-toggle-1m'
 
 ###############################################################################
 #  Auto-Suggestions
