@@ -1329,7 +1329,8 @@
                     "bundle_identifiers": [
                       "^com\\.jetbrains\\.rider$",
                       "^com\\.apple\\.Terminal$",
-                      "^com\\.jetbrains\\.WebStorm$"
+                      "^com\\.jetbrains\\.WebStorm$",
+                      "com.lemonmojo.RoyalTSX.App"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1363,7 +1364,8 @@
                     "bundle_identifiers": [
                       "^com\\.jetbrains\\.rider$",
                       "^com\\.apple\\.Terminal$",
-                      "^com\\.jetbrains\\.WebStorm$"
+                      "^com\\.jetbrains\\.WebStorm$",
+                      "com.lemonmojo.RoyalTSX.App"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1459,7 +1461,8 @@
                     "bundle_identifiers": [
                       "^com\\.jetbrains\\.rider$",
                       "^com\\.apple\\.Terminal$",
-                      "^com\\.jetbrains\\.WebStorm$"
+                      "^com\\.jetbrains\\.WebStorm$",
+                      "com.lemonmojo.RoyalTSX.App"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1493,7 +1496,8 @@
                     "bundle_identifiers": [
                       "^com\\.jetbrains\\.rider$",
                       "^com\\.apple\\.Terminal$",
-                      "^com\\.jetbrains\\.WebStorm$"
+                      "^com\\.jetbrains\\.WebStorm$",
+                      "com.lemonmojo.RoyalTSX.App"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1589,7 +1593,8 @@
                     "bundle_identifiers": [
                       "^com\\.jetbrains\\.rider$",
                       "^com\\.apple\\.Terminal$",
-                      "^com\\.jetbrains\\.WebStorm$"
+                      "^com\\.jetbrains\\.WebStorm$",
+                      "com.lemonmojo.RoyalTSX.App"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1623,7 +1628,8 @@
                     "bundle_identifiers": [
                       "^com\\.jetbrains\\.rider$",
                       "^com\\.apple\\.Terminal$",
-                      "^com\\.jetbrains\\.WebStorm$"
+                      "^com\\.jetbrains\\.WebStorm$",
+                      "com.lemonmojo.RoyalTSX.App"
                     ],
                     "type": "frontmost_application_unless"
                   }
