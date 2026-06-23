@@ -1352,7 +1352,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1408,7 +1408,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1444,7 +1444,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1484,7 +1484,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1540,7 +1540,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1576,7 +1576,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1616,7 +1616,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1672,7 +1672,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
@@ -1708,7 +1708,7 @@
                   },
                   {
                     "select_input_source": {
-                      "input_source_id": "com.apple.keylayout.UnicodeHexInput"
+                      "input_source_id": "org.unknown.keylayout.USPlain"
                     }
                   }
                 ],
