@@ -60,7 +60,7 @@ alias ltree="eza --tree --level=2 --git"
 alias fd='fd --hidden --no-ignore'
 
 # claude
-alias cc='claude'
+alias cc='CLAUDE_CODE_NO_FLICKER=1 claude'
 alias ccm='claude-toggle-1m'
 
 ###############################################################################
