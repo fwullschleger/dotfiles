@@ -1,0 +1,405 @@
+#!/usr/bin/env python3
+"""Generate an iCalendar (.ics) of yearly birthday events from a CSV.
+
+Reads a birthday CSV (columns: Name, Birthday, Zodiac Sign, Group, Notes) and
+writes, per person, two or three all-day, yearly-recurring events that Google
+Calendar imports and repeats on the correct day each year:
+
+  * the birthday          -- 🎂 Name (birth year)
+  * a "tomorrow" heads-up -- 🔔 Name, the day before
+  * (buy-gift list only)  -- 🎁 Name, two weeks before, to buy a gift
+
+These are plain visible events, not alarms, because Google Calendar drops
+VALARM reminders on import. Each event's UID is derived from name+birthday+kind,
+so re-importing the whole file updates events in place instead of creating
+duplicates -- no tracking file or database is needed.
+
+The CSV, the generated .ics, and the buy-gift list all live outside any
+repository; only this script is version-controlled.
+"""
+
+import argparse
+import csv
+import hashlib
+import os
+import sys
+from collections import namedtuple
+from datetime import datetime, timedelta, timezone
+
+PRODID = "-//dotfiles//birthdays-to-ics//EN"
+DEFAULT_CALNAME = "Birthdays (Favorites)"
+UID_DOMAIN = "@birthdays.local"
+CAKE = "\U0001F382"  # birthday cake emoji -- the birthday event
+BELL = "\U0001F514"  # bell emoji -- the day-before "tomorrow" event
+GIFT = "\U0001F381"  # wrapped-gift emoji -- the two-weeks-before buy-gift event
+
+# How many days before the birthday each reminder event lands.
+DAYS_BEFORE_TOMORROW = 1
+DAYS_BEFORE_BUY_GIFT = 14
+
+Record = namedtuple("Record", "name birthday dt zodiac group notes")
+
+
+def warn(message):
+    """Write one diagnostic line to stderr."""
+    print(message, file=sys.stderr)
+
+
+def escape_text(value):
+    """Escape a value for an iCalendar TEXT field (RFC 5545 section 3.3.11)."""
+    value = value.replace("\r\n", "\n").replace("\r", "\n")
+    value = value.replace("\\", "\\\\")
+    value = value.replace(";", "\\;")
+    value = value.replace(",", "\\,")
+    value = value.replace("\n", "\\n")
+    return value
+
+
+def fold_line(line):
+    """Fold a content line to at most 75 octets per RFC 5545 section 3.1.
+
+    Continuation lines start with a single space. A fold never lands inside a
+    multi-byte UTF-8 character.
+    """
+    encoded = line.encode("utf-8")
+    if len(encoded) <= 75:
+        return line
+    pieces = []
+    start = 0
+    limit = 75
+    while start < len(encoded):
+        end = min(start + limit, len(encoded))
+        # Back off so the cut never splits a multi-byte UTF-8 sequence.
+        while end < len(encoded) and (encoded[end] & 0xC0) == 0x80:
+            end -= 1
+        pieces.append(encoded[start:end].decode("utf-8"))
+        start = end
+        limit = 74  # continuation lines spend one octet on the leading space
+    return "\r\n ".join(pieces)
+
+
+def make_uid(name, birthday, kind):
+    """Deterministic per-event UID -- the dedup key Google matches on.
+
+    kind ("bday", "eve", "gift") keeps a person's events distinct so all
+    three update in place on re-import.
+    """
+    key = (name + "|" + birthday + "|" + kind).encode("utf-8")
+    return hashlib.sha1(key).hexdigest()[:16] + UID_DOMAIN
+
+
+def build_description(zodiac, group, notes):
+    """Assemble the DESCRIPTION from the non-empty detail fields."""
+    parts = []
+    if zodiac:
+        parts.append("Zodiac: " + zodiac)
+    if group:
+        parts.append("Group: " + group)
+    if notes:
+        parts.append("Notes: " + notes)
+    return "\n".join(parts)
+
+
+def all_day_event(uid, date, summary, dtstamp, description=""):
+    """Build one all-day, yearly-recurring VEVENT as a list of content lines."""
+    lines = [
+        "BEGIN:VEVENT",
+        "UID:" + uid,
+        "DTSTAMP:" + dtstamp,
+        "DTSTART;VALUE=DATE:" + date.strftime("%Y%m%d"),
+        "RRULE:FREQ=YEARLY",
+        "SUMMARY:" + escape_text(summary),
+    ]
+    if description:
+        lines.append("DESCRIPTION:" + escape_text(description))
+    lines.append("TRANSP:TRANSPARENT")
+    lines.append("END:VEVENT")
+    return lines
+
+
+def birthday_date(dt):
+    """The date the birthday event recurs on.
+
+    Feb 29 has no date in non-leap years, so a yearly rule on it fires only
+    every fourth year. Shift those birthdays to Feb 28 so the event -- and the
+    reminders derived from it -- recur every year.
+    """
+    if dt.month == 2 and dt.day == 29:
+        return dt.replace(day=28)
+    return dt
+
+
+def build_events(record, dtstamp, is_buy_gift):
+    """Build the two or three yearly events for one person."""
+    bday = birthday_date(record.dt)
+    lines = all_day_event(
+        make_uid(record.name, record.birthday, "bday"),
+        bday,
+        "%s %s (%d)" % (CAKE, record.name, record.dt.year),
+        dtstamp,
+        build_description(record.zodiac, record.group, record.notes),
+    )
+    lines += all_day_event(
+        make_uid(record.name, record.birthday, "eve"),
+        bday - timedelta(days=DAYS_BEFORE_TOMORROW),
+        "%s %s — birthday tomorrow" % (BELL, record.name),
+        dtstamp,
+    )
+    if is_buy_gift:
+        lines += all_day_event(
+            make_uid(record.name, record.birthday, "gift"),
+            bday - timedelta(days=DAYS_BEFORE_BUY_GIFT),
+            "%s %s — buy gift" % (GIFT, record.name),
+            dtstamp,
+        )
+    return lines
+
+
+def resolve_out_dir(args, csv_path):
+    """Return the output directory, or None if an explicit --out is missing."""
+    if args.out:
+        out_dir = os.path.expanduser(args.out)
+        if not os.path.isdir(out_dir):
+            warn("error: --out directory does not exist: %s" % args.out)
+            return None
+        return out_dir
+    return os.path.dirname(os.path.abspath(csv_path))
+
+
+def load_buy_gift_names(args, csv_path):
+    """Resolve and load the buy-gift list, merging any --buy-gift entries.
+
+    Resolution order: --buy-gift-list, then buy-gift.txt next to the CSV, then
+    ~/.config/birthdays-to-ics/buy-gift.txt. A missing list is not an error.
+    Names are deduped case-insensitively, keeping the first spelling seen.
+    """
+    file_path = None
+    if args.buy_gift_list:
+        candidate = os.path.expanduser(args.buy_gift_list)
+        if os.path.isfile(candidate):
+            file_path = candidate
+        else:
+            warn("buy-gift list: file not found: %s" % args.buy_gift_list)
+    else:
+        sibling = os.path.join(
+            os.path.dirname(os.path.abspath(csv_path)), "buy-gift.txt"
+        )
+        fallback = os.path.expanduser("~/.config/birthdays-to-ics/buy-gift.txt")
+        if os.path.isfile(sibling):
+            file_path = sibling
+        elif os.path.isfile(fallback):
+            file_path = fallback
+
+    names = []
+    if file_path:
+        try:
+            with open(file_path, encoding="utf-8") as handle:
+                for raw in handle:
+                    entry = raw.strip()
+                    if not entry or entry.startswith("#"):
+                        continue
+                    names.append(entry)
+        except OSError as exc:
+            warn("buy-gift list: cannot read %s: %s" % (file_path, exc))
+
+    if args.buy_gift:
+        names.extend(g.strip() for g in args.buy_gift if g.strip())
+
+    if not file_path and not args.buy_gift:
+        warn("buy-gift list: no buy-gift file found; buy-gift reminders off")
+
+    seen = set()
+    unique = []
+    for entry in names:
+        key = entry.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(entry)
+    return unique
+
+
+def read_records(csv_path):
+    """Parse the CSV into validated Records plus skip bookkeeping.
+
+    Returns (records, skipped, all_names) or None on a fatal read/schema error.
+    Bad or missing dates and missing names are skipped with a warning; one bad
+    row never aborts the run. all_names holds the lower-cased names of every row
+    that carried a Name (including skipped rows), so buy-gift typos can be told
+    apart from rows that merely failed to parse.
+    """
+    try:
+        with open(csv_path, newline="", encoding="utf-8-sig") as handle:
+            reader = csv.reader(handle)
+            try:
+                header = [column.strip() for column in next(reader)]
+            except StopIteration:
+                header = []
+            data_rows = list(reader)
+    except OSError as exc:
+        warn("error: cannot read CSV: %s" % exc)
+        return None
+
+    if "Name" not in header or "Birthday" not in header:
+        warn("error: CSV must have 'Name' and 'Birthday' columns")
+        return None
+
+    records = []
+    all_names = set()
+    skipped = 0
+    for index, raw_row in enumerate(data_rows, start=1):
+        row = dict(zip(header, raw_row))
+        name = row.get("Name", "").strip()
+        birthday = row.get("Birthday", "").strip()
+        if not name:
+            warn("skipping row %d: missing Name" % index)
+            skipped += 1
+            continue
+        all_names.add(name.lower())
+        try:
+            dt = datetime.strptime(birthday, "%Y-%m-%d")
+        except ValueError:
+            warn("skipping row %d (%s): bad date '%s'" % (index, name, birthday))
+            skipped += 1
+            continue
+        records.append(
+            Record(
+                name=name,
+                birthday=birthday,
+                dt=dt,
+                zodiac=row.get("Zodiac Sign", "").strip(),
+                group=row.get("Group", "").strip(),
+                notes=row.get("Notes", "").strip(),
+            )
+        )
+    return records, skipped, all_names
+
+
+def parse_args(argv):
+    parser = argparse.ArgumentParser(
+        prog="birthdays-to-ics",
+        description="Generate an iCalendar (.ics) of yearly birthday events "
+        "from a CSV.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="buy-gift list file:\n"
+        "  One recipient per line, no quotes (the quotes in the --buy-gift\n"
+        "  examples below are just shell quoting). A name must match a\n"
+        "  person's Name in the CSV (case-insensitive); inner spaces are\n"
+        "  kept, so Alexander S is one name. Surrounding spaces are trimmed.\n"
+        "  Blank lines and #-comments are ignored. No IDs -- recipients are\n"
+        "  matched by name. A listed name with no matching CSV row is\n"
+        "  reported as a warning.\n"
+        "\n"
+        "examples:\n"
+        "  birthdays-to-ics ~/data/birthdays.csv\n"
+        "  birthdays-to-ics ~/data/birthdays.csv --out ~/Desktop\n"
+        '  birthdays-to-ics ~/data/birthdays.csv --buy-gift "Mum" --buy-gift "Alexander S"\n',
+    )
+    parser.add_argument(
+        "csv", metavar="CSV", help="path to the birthday CSV (required)"
+    )
+    parser.add_argument(
+        "--out",
+        metavar="DIR",
+        help="write the ICS into DIR instead of next to the CSV "
+        "(filename stays <csv-stem>.ics)",
+    )
+    parser.add_argument(
+        "--calname",
+        metavar="NAME",
+        default=DEFAULT_CALNAME,
+        help="X-WR-CALNAME shown in Google (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--buy-gift-list",
+        metavar="FILE",
+        dest="buy_gift_list",
+        help="names file for the 2-weeks-before buy-gift event "
+        "(default: buy-gift.txt next to the CSV, "
+        "else ~/.config/birthdays-to-ics/buy-gift.txt)",
+    )
+    parser.add_argument(
+        "--buy-gift",
+        metavar="NAME",
+        action="append",
+        dest="buy_gift",
+        help="add one buy-gift recipient (repeatable; merged with the list)",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv=None):
+    args = parse_args(argv)
+
+    csv_path = os.path.expanduser(args.csv)
+    if not os.path.isfile(csv_path):
+        warn("error: CSV not found: %s" % args.csv)
+        return 1
+
+    out_dir = resolve_out_dir(args, csv_path)
+    if out_dir is None:
+        return 1
+
+    buy_gift_names = load_buy_gift_names(args, csv_path)
+    buy_gift_norm = {name.lower() for name in buy_gift_names}
+
+    parsed = read_records(csv_path)
+    if parsed is None:
+        return 1
+    records, skipped, all_names = parsed
+
+    lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:" + PRODID,
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "X-WR-CALNAME:" + escape_text(args.calname),
+    ]
+    dtstamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    buy_gift_count = 0
+    for record in records:
+        is_buy_gift = record.name.lower() in buy_gift_norm
+        if is_buy_gift:
+            buy_gift_count += 1
+        lines += build_events(record, dtstamp, is_buy_gift)
+    lines.append("END:VCALENDAR")
+
+    # Surface buy-gift typos: a name on the list that matches no CSV row.
+    for buy_gift_name in buy_gift_names:
+        if buy_gift_name.lower() not in all_names:
+            warn("buy-gift list: no birthday row for '%s'" % buy_gift_name)
+
+    written = len(records)
+    birthdays_word = "birthday" if written == 1 else "birthdays"
+    rows_word = "row" if skipped == 1 else "rows"
+    summary = "%d %s written (%d with buy-gift), %d %s skipped" % (
+        written,
+        birthdays_word,
+        buy_gift_count,
+        skipped,
+        rows_word,
+    )
+
+    if written == 0:
+        warn(summary)
+        warn("error: no valid rows; nothing written")
+        return 1
+
+    stem = os.path.splitext(os.path.basename(csv_path))[0]
+    out_path = os.path.join(out_dir, stem + ".ics")
+    data = ("\r\n".join(fold_line(line) for line in lines) + "\r\n").encode("utf-8")
+    try:
+        with open(out_path, "wb") as out:
+            out.write(data)
+    except OSError as exc:
+        warn("error: cannot write %s: %s" % (out_path, exc))
+        return 1
+
+    warn(summary)
+    warn("wrote %s" % out_path)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
