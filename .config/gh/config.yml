@@ -12,7 +12,7 @@ prefer_editor_prompt: disabled
 pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
-    co: stack checkout
+    co: '!if [ $# -eq 0 ]; then b=$(git branch --sort=-committerdate --format=''%(refname:short)'' | fzf --height=40% --reverse --prompt=''branch> '') && [ -n "$b" ] && exec git switch "$b"; else exec git switch "$@"; fi'
     ls: stack view -s
     t: stack top
     top: stack top
@@ -25,6 +25,7 @@ aliases:
     d: stack down
     submit: stack submit
     restack: stack rebase
+    get: stack checkout
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
 # What web browser gh should use when opening URLs. If blank, will refer to environment.
