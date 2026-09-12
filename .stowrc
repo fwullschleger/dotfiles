@@ -3,3 +3,4 @@
 --ignore=DS_Store
 --ignore=setup.sh
 --ignore=.idea
+--ignore=.gt-wrapper-function.sh
