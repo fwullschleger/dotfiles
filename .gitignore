@@ -1,2 +1,5 @@
 .DS_Store
 .idea
+
+# gh auth tokens - never track
+.config/gh/hosts.yml
